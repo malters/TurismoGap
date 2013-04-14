@@ -1,0 +1,129 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Turismo Digital</title>
+<link href="jquery-mobile/jquery.mobile.structure-1.3.0.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+<script src="jquery-mobile/cordova-2.1.0.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="jquery-mobile/CalendarEventPlugin.js"></script>
+</head> 
+<body> 
+
+<div data-role="page" id="page">
+ <div data-role="header" data-theme="d">
+ 	<h1>Turismo Digital</h1>
+ </div>
+ 	<div data-role="content"> 
+ 	<ul data-role="listview" data-split-icon="loading" data-theme="b">
+ 	 <li><a href="#prp" onClick="getEventos()"><span style="right:5px;background: url(img/eventos.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Eventos</a></li>
+  <li><a href="#page3"><span style="right:5px;background: url(img/guia.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Guías</a></li>
+ 	 <li><a href="#page4"><span style="right:5px;background: url(img/itinerario.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Itinerario</a></li>
+     	 <li><a href="#page4"><span style="right:5px;background: url(img/visita.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Visitas virtuales</a></li>
+ 	 </ul>	 
+ </div>
+ <div data-role="footer" data-theme="c">
+ 	<h4>Pasea con la ayuda de las nuevas tecnologías</h4>
+ </div>
+</div>
+
+<div data-role="page" id="guias">
+ <div data-role="header">
+ 	<h1>Página dos</h1>
+ </div>
+ 	<div data-role="content"> 
+ 	 Contenido	 
+ </div>
+ <div data-role="footer">
+ 	<h4>Pie de página</h4>
+ </div>
+</div>
+
+<div data-role="page" id="page3">
+ <div data-role="header">
+ 	<h1>Página tres</h1>
+ </div>
+ 	<div data-role="content"> 
+ 	 Contenido	 
+ </div>
+ <div data-role="footer">
+ 	<h4>Pie de página</h4>
+ </div>
+</div>
+
+<div data-role="page" id="page4">
+ <div data-role="header">
+ 	<h1>Página cuatro</h1>
+ </div>
+ 	<div data-role="content"> 
+ 	 Contenido	 
+ </div>
+ <div data-role="footer">
+ 	<h4>Pie de página</h4>
+ </div>
+</div>
+
+<div data-role="page" id="prp">
+ <div data-role="header" data-theme="b">
+<h1>Listado de Eventos</h1>
+ </div>
+<div id="divList" data-role="content">
+</div>
+
+</div>  
+
+</body>
+<script type="text/javascript">
+function onDeviceReady() {}
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function getEventos(){
+$.ajax({
+type: "POST",
+contentType: "application/json; charset=utf-8",
+dataType: "json",
+  url: "http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/GetEventos",
+  data: '{}',
+  success: function(msg) {	
+    $("#divList").append('<ul id="details" data-role="listview" data-inset="true">');
+	$.each(msg, function (i, theItem) {
+		var startDateString = theItem.startDate.toString();
+		var endDateString = theItem.endDate.toString();
+		var location = theItem.location.toString();
+        var title = encodeURIComponent(theItem.title.toString());
+        $("#divList ul").append('<li data-role="list-divider">'+theItem.startDate.toString()+'</li>' );
+
+		
+	 });
+  $("#divList")('</ul>' );
+  $('#details').listview('refresh');
+  },
+  error: function(msg) {
+   if (msg.status == 200 && result.statusText == "OK") {
+    //this is here only because chrome breaks on this method only for no reason whatsoever.
+    //chrome sees the request as failed, but everything happens fine...
+    success(msg);
+  }
+  else {
+    alert("FAILED : " + msg.status + ' ' + msg.statusText);
+  }
+  }
+});
+}
+function calendarCall(start,end,title,location){
+	var notes="";
+	var dateParts = start.split("/");
+    var startDate = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
+    dateParts = end.split("/");
+    var endDate = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);   
+    var titleString=decodeURIComponent(title);
+    
+	var success = function() { alert("Evento a�adido correctamente"); };
+	var error = function(message) { alert("Error:No se ha a�adido el evento"); };
+	window.plugins.calendarPlugin.createEvent(titleString,location,notes,startDate,endDate, success, error);
+}
+</script>
+</html>
