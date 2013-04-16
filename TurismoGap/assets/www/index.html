@@ -3,11 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Turismo Digital</title>
-<link href="jquery-mobile/jquery.mobile.structure-1.3.0.css" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
-<script src="jquery-mobile/cordova-2.1.0.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
+<script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
 
 <script type="text/javascript" charset="utf-8" src="jquery-mobile/CalendarEventPlugin.js"></script>
 </head> 
@@ -70,9 +68,21 @@
  <div data-role="header" data-theme="b">
 <h1>Listado de Eventos</h1>
  </div>
-<div id="divList" data-role="content">
+<div id="content" data-role="content">
+<ul id="listview" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+</ul>
 </div>
-
+<div id="dialogTest" data-role="page">
+    <div data-role="header" data-position="fixed">
+        <h1>test</h1>
+    </div>
+    <div data-role="content">
+        I am a dialog :)
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h4>test</h4>
+    </div>
+</div>
 </div>  
 
 </body>
@@ -88,18 +98,27 @@ dataType: "json",
   url: "http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/GetEventos",
   data: '{}',
   success: function(msg) {	
-    $("#divList").append('<ul id="details" data-role="listview" data-inset="true">');
+  var listview;
+  var parent = document.getElementById('listview');	
 	$.each(msg, function (i, theItem) {
 		var startDateString = theItem.startDate.toString();
 		var endDateString = theItem.endDate.toString();
 		var location = theItem.location.toString();
         var title = encodeURIComponent(theItem.title.toString());
-        $("#divList ul").append('<li data-role="list-divider">'+theItem.startDate.toString()+'</li>' );
-
 		
+        var listdiv = document.createElement('li');
+        listdiv.setAttribute('id','listdiv');
+        listdiv.setAttribute('data-role','list-divider');
+        listdiv.innerHTML = theItem.startDate.toString();	
+			
+		parent.appendChild(listdiv);
+		
+		var listItem = document.createElement('li');
+        listItem.innerHTML = '<a data-index="' + i + '" onClick=viewDetails('+i+',"'+theItem.location.toString()+'") > <h2>'+theItem.title.toString()+'</h2><p><strong>'+theItem.location.toString()+'</strong></p><p>Descripci�n</p><p class="ui-li-aside"><a href="#" onClick=calendarCall("'+startDateString+'","'+endDateString+'","'+title+'","'+location+'") data-icon="plus" data-role="button" data-mini="true" data-theme="b">Añadir</a></p></a>';
+		parent.appendChild(listItem);
 	 });
-  $("#divList")('</ul>' );
-  $('#details').listview('refresh');
+  var list = document.getElementById('listview');
+  $(list).listview("refresh");
   },
   error: function(msg) {
    if (msg.status == 200 && result.statusText == "OK") {
@@ -124,6 +143,24 @@ function calendarCall(start,end,title,location){
 	var success = function() { alert("Evento a�adido correctamente"); };
 	var error = function(message) { alert("Error:No se ha a�adido el evento"); };
 	window.plugins.calendarPlugin.createEvent(titleString,location,notes,startDate,endDate, success, error);
+}
+function viewDetails(index,texto){
+	    var  $toPage = $('#details_' + index);
+		    //stop the browser from scrolling to the top of the page due to the hash mark (#) in the link's href attribute
+    event.preventDefault();
+    
+    //check to see if the page for the link clicked already exists, if so then don't re-add it to the DOM
+    if ($toPage.length === 0) {
+        
+        //no page was found so create one, we can access the photos object to insert data related to the link clicked
+        $('body').append('<div data-role="page" id="details_' + index + '"><div data-role="content"><p>Some Key: ' + texto + '</p><a data-role="button" href="#home">Back Home</a></div></div>');
+        
+        //set the $toPage variable to the newly added page so jQuery Mobile can navigate to it
+        $toPage = $('#details_' + index);
+    }
+    
+    //change to the desired page
+    $.mobile.changePage($toPage);
 }
 </script>
 </html>
