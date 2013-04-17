@@ -3,11 +3,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Turismo Digital</title>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+<link rel="stylesheet" href="jquery-mobile/jquery.mobile-1.0.min.css" />
 <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
 <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
-
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="jquery-mobile/CalendarEventPlugin.js"></script>
+<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" />
 </head> 
 <body> 
 
@@ -17,15 +19,63 @@
  </div>
  	<div data-role="content"> 
  	<ul data-role="listview" data-split-icon="loading" data-theme="b">
- 	 <li><a href="#prp" onClick="getEventos()"><span style="right:5px;background: url(img/eventos.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Eventos</a></li>
+     <li><a href="#tipoEvento" onClick="getTiposEventos()"><span style="right:5px;background: url(img/eventos.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Eventos</a></li>
   <li><a href="#page3"><span style="right:5px;background: url(img/guia.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Guías</a></li>
- 	 <li><a href="#page4"><span style="right:5px;background: url(img/itinerario.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Itinerario</a></li>
-     	 <li><a href="#page4"><span style="right:5px;background: url(img/visita.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Visitas virtuales</a></li>
+     <li><a href="#page4"><span style="right:5px;background: url(img/itinerario.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Itinerario</a></li>
+         <li><a href="#page4"><span style="right:5px;background: url(img/visita.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Visitas virtuales</a></li>
  	 </ul>	 
  </div>
- <div data-role="footer" data-theme="c">
- 	<h4>Pasea con la ayuda de las nuevas tecnologías</h4>
+ <div data-role="footer" data-theme="b">
+ 	<h4 style="text-align:center;">Pasea con la ayuda de las nuevas tecnologías</h4>
  </div>
+</div>
+<div data-role="page" id="tipoEvento">
+	<div data-role="header" data-theme="b">
+		<h1>Listado de Tipos Eventos</h1>
+	</div>
+	<div id="content" data-role="content"><form id="frmLogin" class="validate">
+        <label><strong>Tipo de Evento:</strong></label>
+		<select name="tiposEventoSelect" id="tiposEventoSelect" class="required">
+            <!-- Add options here -->
+        </select><br>
+        <label><strong>Fecha Inicio:</strong></label>
+        <input data-role="datebox" data-clear-btn="true" name="fechaInicio" id="fechaInicio" value="" class="required"><br>
+        <label><strong>Fecha Fin:</strong></label>
+        <input data-role="datebox" data-clear-btn="true" name="fechaFin" id="fechaFin" value="" class="required"><br>
+        <a href="#eventos" onClick="getEventos(0,0,0)">Buscar</a>
+        <button  data-icon="search" class="btnLogin" type="submit" 
+          data-theme="b">Buscar</button>
+        </form>
+	</div>
+    <div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
+		<div data-role="navbar">
+		<ul>
+			<li><a href="#page">Inicio</a></li>
+			<li><a href="b.html">Guías</a></li>
+			<li><a href="c.html">Itinerario</a></li>
+			<li><a href="d.html">Visitas</a></li>
+		</ul>
+		</div>
+	</div>
+</div>
+<div data-role="page" id="eventos">
+	<div data-role="header" data-theme="b">
+		<h1>Listado de Eventos</h1>
+	</div>
+	<div id="content" data-role="content">
+		<ul id="listview" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+	</ul>
+	</div>
+    <div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
+		<div data-role="navbar">
+		<ul>
+			<li><a href="#page">Inicio</a></li>
+			<li><a href="b.html">Guías</a></li>
+			<li><a href="c.html">Itinerario</a></li>
+			<li><a href="d.html">Visitas</a></li>
+		</ul>
+		</div>
+	</div>
 </div>
 
 <div data-role="page" id="guias">
@@ -47,9 +97,16 @@
  	<div data-role="content"> 
  	 Contenido	 
  </div>
- <div data-role="footer">
- 	<h4>Pie de página</h4>
- </div>
+<div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
+	<div data-role="navbar">
+		<ul>
+			<li><a href="#tipoEvento">Eventos</a></li>
+			<li><a href="b.html">Friends</a></li>
+			<li><a href="c.html">Albums</a></li>
+			<li><a href="d.html">Emails</a></li>
+		</ul>
+	</div><!-- /navbar -->
+</div><!-- /footer -->
 </div>
 
 <div data-role="page" id="page4">
@@ -64,71 +121,79 @@
  </div>
 </div>
 
-<div data-role="page" id="prp">
- <div data-role="header" data-theme="b">
-<h1>Listado de Eventos</h1>
- </div>
-<div id="content" data-role="content">
-<ul id="listview" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
-</ul>
-</div>
-<div id="dialogTest" data-role="page">
-    <div data-role="header" data-position="fixed">
-        <h1>test</h1>
-    </div>
-    <div data-role="content">
-        I am a dialog :)
-    </div>
-    <div data-role="footer" data-position="fixed">
-        <h4>test</h4>
-    </div>
-</div>
-</div>  
-
 </body>
 <script type="text/javascript">
+$( "#frmLogin" ).validate({
+    submitHandler: function( form ) {
+		var selec=$("#tiposEventoSelect").val();
+		var fechaInicio=$("#fechaInicio").val();
+		var fechaFin=$("#fechaFin").val();
+		getEventos(selec,fechaInicio,fechaFin);
+    }
+});
+
 function onDeviceReady() {}
 document.addEventListener("deviceready", onDeviceReady, false);
 
-function getEventos(){
+function getTiposEventos(){
+	$.ajax({
+	type: "POST",
+	contentType: "application/json; charset=utf-8",
+	dataType: "json",
+	url:"http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/getTipoEventos?idioma=es",
+	data: '{}',
+	success: function(msg) {	
+		$.each(msg, function (i, theItem) {
+			$('#tiposEventoSelect').append('<option value='+parseInt(theItem.id)+'>'+theItem.nombre.toString()	+'</option>');
+	});
+	$('#tiposEventoSelect').listview("refresh");
+  	},
+  	error: function(msg) {
+    	alert("FAILED : " + msg.status + ' ' + msg.statusText);
+  }
+});
+}
+function getEventos(tipoEvento,fechaInicio,fechaFin){
 $.ajax({
 type: "POST",
 contentType: "application/json; charset=utf-8",
 dataType: "json",
-  url: "http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/GetEventos",
+  url: "http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/getEventos",
   data: '{}',
   success: function(msg) {	
   var listview;
   var parent = document.getElementById('listview');	
 	$.each(msg, function (i, theItem) {
-		var startDateString = theItem.startDate.toString();
-		var endDateString = theItem.endDate.toString();
-		var location = theItem.location.toString();
-        var title = encodeURIComponent(theItem.title.toString());
-		
+
+
+		var startDateString = theItem.fechaInicio.toString();
+		var endDateString = theItem.fechaFin.toString();
+		var location = theItem.localizacion.toString();
+        var nombre = encodeURIComponent(theItem.nombre.toString());
+		var descripcion = encodeURIComponent(theItem.descripcion.toString());
+		var horario = encodeURIComponent(theItem.horarios.toString());
+		var precio = encodeURIComponent(theItem.precios.toString());
+		var infoExtra = encodeURIComponent(theItem.infoExtra.toString());
+		var coordenadas = theItem.puntoInteresCoordenadas.toString().split(',');
+		coordenadasX = coordenadas[0];
+		coordenadasY = coordenadas[1];
+
         var listdiv = document.createElement('li');
         listdiv.setAttribute('id','listdiv');
         listdiv.setAttribute('data-role','list-divider');
-        listdiv.innerHTML = theItem.startDate.toString();	
-			
+        listdiv.innerHTML = startDateString;	
 		parent.appendChild(listdiv);
-		
 		var listItem = document.createElement('li');
-        listItem.innerHTML = '<a data-index="' + i + '" onClick=viewDetails('+i+',"'+theItem.location.toString()+'") > <h2>'+theItem.title.toString()+'</h2><p><strong>'+theItem.location.toString()+'</strong></p><p>Descripci�n</p><p class="ui-li-aside"><a href="#" onClick=calendarCall("'+startDateString+'","'+endDateString+'","'+title+'","'+location+'") data-icon="plus" data-role="button" data-mini="true" data-theme="b">Añadir</a></p></a>';
+        listItem.innerHTML = '<a data-index="' + i + '" onClick=viewDetails('+i+',"'+startDateString+'","'+endDateString+'","'+nombre+'","'+descripcion+'","'+horario+'","'+precio+'","'+infoExtra+'","'+coordenadasX+'","'+coordenadasY+'") > <h2>'+theItem.nombre.toString()+'</h2><p><strong>'+location+'</strong></p><a data-role="button" data-mini="true" href="#" onClick=calendarCall("'+startDateString+'","'+endDateString+'","'+nombre+'","'+location+'") data-icon="plus">Añadir a calendario</a></a>';
 		parent.appendChild(listItem);
 	 });
   var list = document.getElementById('listview');
   $(list).listview("refresh");
+  var  $toPage = $('#eventos');
+    $.mobile.changePage($toPage);
   },
   error: function(msg) {
-   if (msg.status == 200 && result.statusText == "OK") {
-    //this is here only because chrome breaks on this method only for no reason whatsoever.
-    //chrome sees the request as failed, but everything happens fine...
-    success(msg);
-  }
-  else {
     alert("FAILED : " + msg.status + ' ' + msg.statusText);
-  }
   }
 });
 }
@@ -144,16 +209,15 @@ function calendarCall(start,end,title,location){
 	var error = function(message) { alert("Error:No se ha a�adido el evento"); };
 	window.plugins.calendarPlugin.createEvent(titleString,location,notes,startDate,endDate, success, error);
 }
-function viewDetails(index,texto){
+function viewDetails(index,fechaInicio,fechaFin,titulo,descripcion,horario,precio,infoExtra,coordenadasX,coordenadasY){
 	    var  $toPage = $('#details_' + index);
 		    //stop the browser from scrolling to the top of the page due to the hash mark (#) in the link's href attribute
     event.preventDefault();
-    
+
     //check to see if the page for the link clicked already exists, if so then don't re-add it to the DOM
     if ($toPage.length === 0) {
-        
         //no page was found so create one, we can access the photos object to insert data related to the link clicked
-        $('body').append('<div data-role="page" id="details_' + index + '"><div data-role="content"><p>Some Key: ' + texto + '</p><a data-role="button" href="#home">Back Home</a></div></div>');
+        $('body').append('<div data-role="page" id="details_' + index + '"><div data-role="content"><ul data-role="listview" data-inset="true"><li data-role="list-divider">' + fechaInicio + '&nbsp;al &nbsp;'+ fechaFin +'</li><li><h2>' + decodeURIComponent(titulo) + '</h2><p style="white-space:normal;"><strong>' + decodeURIComponent(descripcion) + '</strong><br><br></p><p>Horario: ' + decodeURIComponent(horario) + '</p><p class="ui-li-aside"><strong> Precio: ' + decodeURIComponent(precio) + '</strong></p><p>' + decodeURIComponent(infoExtra) + '<br><br></p><p align="center"><img src="http://maps.googleapis.com/maps/api/staticmap?center=' + coordenadasY + ',' + coordenadasX + '&zoom=15&size=300x300&markers=color:red%7Clabel:A%7C' + coordenadasY + ',' + coordenadasX +'&maptype=roadmap18&sensor=false"></p><p><a data-role="button" href="#eventos">Volver</a></p></li></ul></div></div>');
         
         //set the $toPage variable to the newly added page so jQuery Mobile can navigate to it
         $toPage = $('#details_' + index);
