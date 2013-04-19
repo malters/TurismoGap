@@ -4,12 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Turismo Digital</title>
 <link rel="stylesheet" href="jquery-mobile/jquery.mobile-1.0.min.css" />
+<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet" /> 
+<link href="default.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script> 
 <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="jquery-mobile/CalendarEventPlugin.js"></script>
 <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
-<link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" />
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 </head> 
 <body> 
 
@@ -21,7 +23,7 @@
  	<ul data-role="listview" data-split-icon="loading" data-theme="b">
      <li><a href="#tipoEvento" onClick="getTiposEventos()"><span style="right:5px;background: url(img/eventos.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Eventos</a></li>
   <li><a href="#page3"><span style="right:5px;background: url(img/guia.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Guías</a></li>
-     <li><a href="#page4"><span style="right:5px;background: url(img/itinerario.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Itinerario</a></li>
+     <li><a href="#tipoItinerarios" onClick="getTiposItinerarios()"><span style="right:5px;background: url(img/itinerario.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Itinerario</a></li>
          <li><a href="#page4"><span style="right:5px;background: url(img/visita.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Visitas virtuales</a></li>
  	 </ul>	 
  </div>
@@ -39,12 +41,10 @@
             <!-- Add options here -->
         </select><br>
         <label><strong>Fecha Inicio:</strong></label>
-        <input data-role="datebox" data-clear-btn="true" name="fechaInicio" id="fechaInicio" value="" class="required"><br>
+        <input type="text" data-role="datebox" name="fechaInicio" id="fechaInicio" value="01-01-2000"  data-options='{"mode":"calbox", "useNewStyle":true,"dateFormat": "dd-mm-YYYY"}' class="required"><br>
         <label><strong>Fecha Fin:</strong></label>
-        <input data-role="datebox" data-clear-btn="true" name="fechaFin" id="fechaFin" value="" class="required"><br>
-        <a href="#eventos" onClick="getEventos(0,0,0)">Buscar</a>
-        <button  data-icon="search" class="btnLogin" type="submit" 
-          data-theme="b">Buscar</button>
+        <input type="text" data-role="datebox" name="fechaFin" id="fechaFin" value="01-01-2020" data-options='{"mode":"calbox", "useNewStyle":true,"dateFormat": "dd-mm-YYYY"}' class="required"><br>
+        <a href="#eventos" data-theme="b" data-role="button" onClick="getEventos(0,0,0)">Buscar</a>
         </form>
 	</div>
     <div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
@@ -52,7 +52,7 @@
 		<ul>
 			<li><a href="#page">Inicio</a></li>
 			<li><a href="b.html">Guías</a></li>
-			<li><a href="c.html">Itinerario</a></li>
+			<li><a href="#tipoItinerarios">Itinerario</a></li>
 			<li><a href="d.html">Visitas</a></li>
 		</ul>
 		</div>
@@ -71,7 +71,50 @@
 		<ul>
 			<li><a href="#page">Inicio</a></li>
 			<li><a href="b.html">Guías</a></li>
-			<li><a href="c.html">Itinerario</a></li>
+			<li><a href="#tipoItinerarios">Itinerario</a></li>
+			<li><a href="d.html">Visitas</a></li>
+		</ul>
+		</div>
+	</div>
+</div>
+
+<div data-role="page" id="tipoItinerarios">
+	<div data-role="header" data-theme="b">
+		<h1>Listado de Tipos Itinerarios</h1>
+	</div>
+	<div id="content" data-role="content"><form id="frmItinerarios" class="validate">
+        <label><strong>Tipo de Itinerarios:</strong></label>
+		<select name="tiposItinerariosSelect" id="tiposItinerariosSelect" class="required">
+            <!-- Add options here -->
+        </select><br>
+        <a href="#itinerarios" data-role="button" data-theme="b" onClick="getItinerarios(0)">Buscar</a>
+        </form>
+	</div>
+    <div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
+		<div data-role="navbar">
+		<ul>
+			<li><a href="#page">Inicio</a></li>
+			<li><a href="#tipoEvento">Eventos</a></li>
+			<li><a href="c.html">Guías</a></li>
+			<li><a href="d.html">Visitas</a></li>
+		</ul>
+		</div>
+	</div>
+</div>
+<div data-role="page" id="itinerarios">
+	<div data-role="header" data-theme="b">
+		<h1>Listado de Itinerarios</h1>
+	</div>
+	<div id="content" data-role="content">
+		<ul id="listviewItinerarios" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+	</ul>
+	</div>
+    <div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
+		<div data-role="navbar">
+		<ul>
+			<li><a href="#page">Inicio</a></li>
+			<li><a href="#tipoEvento">Eventos</a></li>
+			<li><a href="c.html">Guías</a></li>
 			<li><a href="d.html">Visitas</a></li>
 		</ul>
 		</div>
@@ -123,6 +166,7 @@
 
 </body>
 <script type="text/javascript">
+
 $( "#frmLogin" ).validate({
     submitHandler: function( form ) {
 		var selec=$("#tiposEventoSelect").val();
@@ -132,15 +176,23 @@ $( "#frmLogin" ).validate({
     }
 });
 
+$( "#frmItinerarios" ).validate({
+    submitHandler: function( form ) {
+		var selec=$("#tiposItinerariosSelect").val();
+		getItinerarios(selec);
+    }
+});
+
 function onDeviceReady() {}
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function getTiposEventos(){
 	$.ajax({
-	type: "POST",
+	type: "GET",
 	contentType: "application/json; charset=utf-8",
 	dataType: "json",
-	url:"http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/getTipoEventos?idioma=es",
+	/*url:"http://localhost:8080/WSTurismoDigital/rest/turismoDigital/getTipoEventos?idioma=es",*/
+	url:"http://85.251.45.123:65234/GISWeb/rest/eventos/getTipoEventos?idioma=es",
 	data: '{}',
 	success: function(msg) {	
 		$.each(msg, function (i, theItem) {
@@ -154,15 +206,20 @@ function getTiposEventos(){
 });
 }
 function getEventos(tipoEvento,fechaInicio,fechaFin){
+tipoEvento=$("#tiposEventoSelect").val();
+fechaInicio=$("#fechaInicio").val();
+fechaFin=$("#fechaFin").val();
 $.ajax({
-type: "POST",
+type: "GET",
 contentType: "application/json; charset=utf-8",
 dataType: "json",
-  url: "http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/getEventos",
+ /* url: "http://localhost:8080/WSTurismoDigital/rest/turismoDigital/getEventos?idioma=es",*/
+   url: "http://85.251.45.123:65234/GISWeb/rest/eventos/getEventos?idioma=es&tipo="+tipoEvento+"&fechaInicio="+fechaInicio+"&fechaFin="+fechaFin,
   data: '{}',
   success: function(msg) {	
   var listview;
   var parent = document.getElementById('listview');	
+  $('#listview').empty();
 	$.each(msg, function (i, theItem) {
 
 
@@ -184,8 +241,10 @@ dataType: "json",
         listdiv.innerHTML = startDateString;	
 		parent.appendChild(listdiv);
 		var listItem = document.createElement('li');
+		listItem.setAttribute('id','listdiv1');
         listItem.innerHTML = '<a data-index="' + i + '" onClick=viewDetails('+i+',"'+startDateString+'","'+endDateString+'","'+nombre+'","'+descripcion+'","'+horario+'","'+precio+'","'+infoExtra+'","'+coordenadasX+'","'+coordenadasY+'") > <h2>'+theItem.nombre.toString()+'</h2><p><strong>'+location+'</strong></p><a data-role="button" data-mini="true" href="#" onClick=calendarCall("'+startDateString+'","'+endDateString+'","'+nombre+'","'+location+'") data-icon="plus">Añadir a calendario</a></a>';
 		parent.appendChild(listItem);
+		 
 	 });
   var list = document.getElementById('listview');
   $(list).listview("refresh");
@@ -197,6 +256,66 @@ dataType: "json",
   }
 });
 }
+
+function getTiposItinerarios(){
+	$.ajax({
+	type: "GET",
+	contentType: "application/json; charset=utf-8",
+	dataType: "json",
+	/*url:"http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/getTipoItinerarios?idioma=es",*/
+	url:"http://85.251.45.123:65234/GISWeb/rest/itinerarios/getTipoItinerarios?idioma=es",
+	data: '{}',
+	success: function(msg) {	
+		$.each(msg, function (i, theItem) {
+			$('#tiposItinerariosSelect').append('<option value='+parseInt(theItem.id)+'>'+theItem.nombre.toString()	+'</option>');
+	});
+	$('#tiposItinerariosSelect').listview("refresh");
+  	},
+  	error: function(msg) {
+    	alert("FAILED : " + msg.status + ' ' + msg.statusText);
+  }
+});
+}
+
+function getItinerarios(tipoEvento){
+tipoEvento=$("#tiposItinerariosSelect").val();
+$.ajax({
+type: "GET",
+contentType: "application/json; charset=utf-8",
+dataType: "json",
+  /*url: "http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/getItinerariosPorTipo?tipo=2592&idioma=es",*/
+  url: "http://85.251.45.123:65234/GISWeb/rest/itinerarios/getItinerariosPorTipo?tipo="+tipoEvento+"&idioma=es",
+  data: '{}',
+  success: function(msg) {	
+  var listview;
+  var parent = document.getElementById('listviewItinerarios');	
+  $('#listviewItinerarios').empty();
+	$.each(msg, function (i, theItem) {
+        var nombre = encodeURIComponent(theItem.nombre.toString());
+		var descripcion = encodeURIComponent(theItem.descripcion.toString());
+		
+        var listdiv = document.createElement('li');
+        listdiv.setAttribute('id','listdivIt');
+        listdiv.setAttribute('data-role','list-divider');
+        listdiv.innerHTML = theItem.nombre.toString();	
+		parent.appendChild(listdiv);
+		var listItem = document.createElement('li');
+		listItem.setAttribute('id','listdivIt2');
+        listItem.innerHTML = '<a data-index="' + i + '" onClick=viewDetailsItinerario('+theItem.id.toString()+',"'+nombre+'","'+descripcion+'") > <p><strong>'+decodeURIComponent(descripcion)+'</strong></p></a>';
+		parent.appendChild(listItem);
+	 });
+
+  var list = document.getElementById('listviewItinerarios');
+  $(list).listview("refresh");
+  var  $toPage = $('#itinerarios');
+    $.mobile.changePage($toPage);
+  },
+  error: function(msg) {
+    alert("FAILED : " + msg.status + ' ' + msg.statusText);
+  }
+});
+}
+
 function calendarCall(start,end,title,location){
 	var notes="";
 	var dateParts = start.split("/");
@@ -209,6 +328,7 @@ function calendarCall(start,end,title,location){
 	var error = function(message) { alert("Error:No se ha a�adido el evento"); };
 	window.plugins.calendarPlugin.createEvent(titleString,location,notes,startDate,endDate, success, error);
 }
+
 function viewDetails(index,fechaInicio,fechaFin,titulo,descripcion,horario,precio,infoExtra,coordenadasX,coordenadasY){
 	    var  $toPage = $('#details_' + index);
 		    //stop the browser from scrolling to the top of the page due to the hash mark (#) in the link's href attribute
@@ -226,5 +346,87 @@ function viewDetails(index,fechaInicio,fechaFin,titulo,descripcion,horario,preci
     //change to the desired page
     $.mobile.changePage($toPage);
 }
+
+function viewDetailsItinerario(index,titulo,descripcion){
+	var  $toPage = $('#detailsIt_' + index);
+		    //stop the browser from scrolling to the top of the page due to the hash mark (#) in the link's href attribute
+    event.preventDefault();
+
+    //check to see if the page for the link clicked already exists, if so then don't re-add it to the DOM
+    if ($toPage.length === 0) {
+        //no page was found so create one, we can access the photos object to insert data related to the link clicked
+        $('body').append('<div id="map-canvas" style="float:left;width:150;height:150;"></div><b>' + decodeURIComponent(titulo) + '</b>');
+        
+        //set the $toPage variable to the newly added page so jQuery Mobile can navigate to it
+        $toPage = $('#map-canvas');
+		initialize(index);
+    }
+    
+    //change to the desired page
+    $.mobile.changePage($toPage);
+}
+
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var map;
+
+function initialize(index) {
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  var zgz = new google.maps.LatLng(41.65509037537398, -0.8801132440567017);
+  var mapOptions = {
+    zoom: 12,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    center: zgz
+  }
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  directionsDisplay.setMap(map);
+  
+  calcRoute(index);
+}
+
+function calcRoute(index) {
+ var origin = null;
+  var destination = null;
+  var waypts = [];
+	$.ajax({
+		type: "GET",
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		/*url:"http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/getItinerarioPuntosInteres?idioma=es",*/
+		url:"http://85.251.45.123:65234/GISWeb/rest/itinerarios/getItinerarioPuntosInteres?id="+index+"&idioma=es",
+		data: '{}',
+		success: function(msg) {	
+			$.each(msg, function (i, theItem) {
+				if(i==0){
+					origin=new google.maps.LatLng(theItem.coordenadaY.toString(), theItem.coordenadaX.toString());
+				}
+				 waypts.push({
+                        location: new google.maps.LatLng(theItem.coordenadaY.toString(), theItem.coordenadaX.toString()),
+                        stopover:true
+                    });
+				destination=new google.maps.LatLng(theItem.coordenadaY.toString(), theItem.coordenadaX.toString());
+		}
+		);
+		  var request = {
+      origin: origin,
+      destination: destination,
+      waypoints: waypts,
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.WALKING
+  };
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+      var route = response.routes[0];
+    }
+  });
+		},
+		error: function(msg) {
+			alert("FAILED : " + msg.status + ' ' + msg.statusText);
+	  }
+	});
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 </html>
