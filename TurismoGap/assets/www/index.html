@@ -22,7 +22,7 @@
  	<div data-role="content"> 
  	<ul data-role="listview" data-split-icon="loading" data-theme="b">
      <li><a href="#tipoEvento" onClick="getTiposEventos()"><span style="right:5px;background: url(img/eventos.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Eventos</a></li>
-  <li><a href="#page3"><span style="right:5px;background: url(img/guia.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Guías</a></li>
+  <li><a href="#tipoGuias" onClick="getTiposGuias()"><span style="right:5px;background: url(img/guia.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Guías</a></li>
      <li><a href="#tipoItinerarios" onClick="getTiposItinerarios()"><span style="right:5px;background: url(img/itinerario.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Itinerario</a></li>
          <li><a href="#page4"><span style="right:5px;background: url(img/visita.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Visitas virtuales</a></li>
  	 </ul>	 
@@ -33,7 +33,7 @@
 </div>
 <div data-role="page" id="tipoEvento">
 	<div data-role="header" data-theme="b">
-		<h1>Listado de Tipos Eventos</h1>
+		<h1>Lista Tipos Eventos</h1>
 	</div>
 	<div id="content" data-role="content"><form id="frmLogin" class="validate">
         <label><strong>Tipo de Evento:</strong></label>
@@ -44,7 +44,7 @@
         <input type="text" data-role="datebox" name="fechaInicio" id="fechaInicio" value="01-01-2000"  data-options='{"mode":"calbox", "useNewStyle":true,"dateFormat": "dd-mm-YYYY"}' class="required"><br>
         <label><strong>Fecha Fin:</strong></label>
         <input type="text" data-role="datebox" name="fechaFin" id="fechaFin" value="01-01-2020" data-options='{"mode":"calbox", "useNewStyle":true,"dateFormat": "dd-mm-YYYY"}' class="required"><br>
-        <a href="#eventos" data-theme="b" data-role="button" onClick="getEventos(0,0,0)">Buscar</a>
+        <a href="#eventos" data-theme="b" data-role="button" onClick="getEventos()">Buscar</a>
         </form>
 	</div>
     <div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
@@ -52,7 +52,7 @@
 		<ul>
 			<li><a href="#page">Inicio</a></li>
 			<li><a href="b.html">Guías</a></li>
-			<li><a href="#tipoItinerarios">Itinerario</a></li>
+			<li><a href="#tipoItinerarios" onClick="getTiposItinerarios()">Itinerario</a></li>
 			<li><a href="d.html">Visitas</a></li>
 		</ul>
 		</div>
@@ -71,7 +71,7 @@
 		<ul>
 			<li><a href="#page">Inicio</a></li>
 			<li><a href="b.html">Guías</a></li>
-			<li><a href="#tipoItinerarios">Itinerario</a></li>
+			<li><a href="#tipoItinerarios" onClick="getTiposItinerarios()">Itinerario</a></li>
 			<li><a href="d.html">Visitas</a></li>
 		</ul>
 		</div>
@@ -80,27 +80,28 @@
 
 <div data-role="page" id="tipoItinerarios">
 	<div data-role="header" data-theme="b">
-		<h1>Listado de Tipos Itinerarios</h1>
+		<h1>Lista Tipos Itinerarios</h1>
 	</div>
 	<div id="content" data-role="content"><form id="frmItinerarios" class="validate">
         <label><strong>Tipo de Itinerarios:</strong></label>
 		<select name="tiposItinerariosSelect" id="tiposItinerariosSelect" class="required">
             <!-- Add options here -->
         </select><br>
-        <a href="#itinerarios" data-role="button" data-theme="b" onClick="getItinerarios(0)">Buscar</a>
+        <a href="#itinerarios" data-role="button" data-theme="b" onClick="getItinerarios()">Buscar</a>
         </form>
 	</div>
     <div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
 		<div data-role="navbar">
 		<ul>
 			<li><a href="#page">Inicio</a></li>
-			<li><a href="#tipoEvento">Eventos</a></li>
+			<li><a href="#tipoEvento" onClick="getTiposEventos()">Eventos</a></li>
 			<li><a href="c.html">Guías</a></li>
 			<li><a href="d.html">Visitas</a></li>
 		</ul>
 		</div>
 	</div>
 </div>
+
 <div data-role="page" id="itinerarios">
 	<div data-role="header" data-theme="b">
 		<h1>Listado de Itinerarios</h1>
@@ -113,7 +114,7 @@
 		<div data-role="navbar">
 		<ul>
 			<li><a href="#page">Inicio</a></li>
-			<li><a href="#tipoEvento">Eventos</a></li>
+			<li><a href="#tipoEvento" onClick="getTiposEventos()">Eventos</a></li>
 			<li><a href="c.html">Guías</a></li>
 			<li><a href="d.html">Visitas</a></li>
 		</ul>
@@ -121,35 +122,48 @@
 	</div>
 </div>
 
-<div data-role="page" id="guias">
- <div data-role="header">
- 	<h1>Página dos</h1>
- </div>
- 	<div data-role="content"> 
- 	 Contenido	 
- </div>
- <div data-role="footer">
- 	<h4>Pie de página</h4>
- </div>
+<div data-role="page" id="tipoGuias">
+	<div data-role="header" data-theme="b">
+		<h1>Lista Tipos Guias</h1>
+	</div>
+	<div id="content" data-role="content"><form id="frmGuias" class="validate">
+        <label><strong>Tipo de Guias:</strong></label>
+		<select name="tiposGuiasSelect" id="tiposGuiasSelect" class="required">
+            <!-- Add options here -->
+        </select><br>
+        <a href="#guias" data-role="button" data-theme="b" onClick="getGuias()">Buscar</a>
+        </form>
+	</div>
+    <div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
+		<div data-role="navbar">
+		<ul>
+			<li><a href="#page">Inicio</a></li>
+			<li><a href="#tipoEvento" onClick="getTiposEventos()">Eventos</a></li>
+			<li><a href="#tipoItinerarios" onClick="getTiposItinerarios()">Itinerarios</a></li>
+			<li><a href="d.html">Visitas</a></li>
+		</ul>
+		</div>
+	</div>
 </div>
 
-<div data-role="page" id="page3">
- <div data-role="header">
- 	<h1>Página tres</h1>
- </div>
- 	<div data-role="content"> 
- 	 Contenido	 
- </div>
-<div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
-	<div data-role="navbar">
+<div data-role="page" id="guias">
+	<div data-role="header" data-theme="b">
+		<h1>Listado de Guias</h1>
+	</div>
+	<div id="content" data-role="content">
+		<ul id="listviewGuias" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+	</ul>
+	</div>
+    <div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
+		<div data-role="navbar">
 		<ul>
-			<li><a href="#tipoEvento">Eventos</a></li>
-			<li><a href="b.html">Friends</a></li>
-			<li><a href="c.html">Albums</a></li>
-			<li><a href="d.html">Emails</a></li>
+			<li><a href="#page">Inicio</a></li>
+			<li><a href="#tipoEvento" onClick="getTiposEventos()">Eventos</a></li>
+			<li><a href="#tipoItinerarios" onClick="getTiposItinerarios()">Itinerarios</a></li>
+			<li><a href="d.html">Visitas</a></li>
 		</ul>
-	</div><!-- /navbar -->
-</div><!-- /footer -->
+		</div>
+	</div>
 </div>
 
 <div data-role="page" id="page4">
@@ -205,7 +219,7 @@ function getTiposEventos(){
   }
 });
 }
-function getEventos(tipoEvento,fechaInicio,fechaFin){
+function getEventos(){
 tipoEvento=$("#tiposEventoSelect").val();
 fechaInicio=$("#fechaInicio").val();
 fechaFin=$("#fechaFin").val();
@@ -277,7 +291,7 @@ function getTiposItinerarios(){
 });
 }
 
-function getItinerarios(tipoEvento){
+function getItinerarios(){
 tipoEvento=$("#tiposItinerariosSelect").val();
 $.ajax({
 type: "GET",
@@ -301,13 +315,72 @@ dataType: "json",
 		parent.appendChild(listdiv);
 		var listItem = document.createElement('li');
 		listItem.setAttribute('id','listdivIt2');
-        listItem.innerHTML = '<a data-index="' + i + '" onClick=viewDetailsItinerario('+theItem.id.toString()+',"'+nombre+'","'+descripcion+'") > <p><strong>'+decodeURIComponent(descripcion)+'</strong></p></a>';
+        listItem.innerHTML = '<a data-index="' + i + '" onClick=viewDetailsItinerario('+theItem.id.toString()+',"'+nombre+'","'+descripcion+'") > <p style="white-space:normal;"><strong>'+decodeURIComponent(descripcion)+'</strong></p></a>';
 		parent.appendChild(listItem);
 	 });
 
   var list = document.getElementById('listviewItinerarios');
   $(list).listview("refresh");
   var  $toPage = $('#itinerarios');
+    $.mobile.changePage($toPage);
+  },
+  error: function(msg) {
+    alert("FAILED : " + msg.status + ' ' + msg.statusText);
+  }
+});
+}
+
+function getTiposGuias(){
+	$.ajax({
+	type: "GET",
+	contentType: "application/json; charset=utf-8",
+	dataType: "json",
+	/*url:"http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/getTipoItinerarios?idioma=es",*/
+	url:"http://85.251.45.123:65234/GISWeb/rest/guias/getTipoGuias?idioma=es",
+	data: '{}',
+	success: function(msg) {	
+		$.each(msg, function (i, theItem) {
+			$('#tiposGuiasSelect').append('<option value='+parseInt(theItem.id)+'>'+theItem.nombre.toString()	+'</option>');
+	});
+	$('#tiposGuiasSelect').listview("refresh");
+  	},
+  	error: function(msg) {
+    	alert("FAILED : " + msg.status + ' ' + msg.statusText);
+  }
+});
+}
+
+function getGuias(){
+tipoGuia=$("#tiposGuiasSelect").val();
+$.ajax({
+type: "GET",
+contentType: "application/json; charset=utf-8",
+dataType: "json",
+  /*url: "http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/getItinerariosPorTipo?tipo=2592&idioma=es",*/
+  url: "http://85.251.45.123:65234/GISWeb/rest/guias/getGuiasPorTipo?idioma=es&tipo="+tipoGuia,
+  data: '{}',
+  success: function(msg) {	
+  var listview;
+  var parent = document.getElementById('listviewGuias');	
+  $('#listviewGuias').empty();
+	$.each(msg, function (i, theItem) {
+        var nombre = encodeURIComponent(theItem.nombre.toString());
+		var descripcion = encodeURIComponent(theItem.descripcion.toString());
+		
+        var listdiv = document.createElement('li');
+        listdiv.setAttribute('id','listdivGuia');
+        listdiv.setAttribute('data-role','list-divider');
+        listdiv.innerHTML = theItem.nombre.toString();	
+		parent.appendChild(listdiv);
+		var listItem = document.createElement('li');
+		listItem.setAttribute('id','listdivGuia2');
+        listItem.innerHTML = '<a data-index="' + i + '" onClick=viewDetailsGuia('+theItem.id.toString()+',"'+nombre+'","'+descripcion+'") > <p style="white-space:normal;"><strong>'+decodeURIComponent(descripcion)+'</strong></p></a>';
+		parent.appendChild(listItem);
+	 });
+
+  var list = document.getElementById('listviewGuias');
+  $(list).listview("refresh");
+  var  $toPage = $('#guias');
     $.mobile.changePage($toPage);
   },
   error: function(msg) {
@@ -331,12 +404,8 @@ function calendarCall(start,end,title,location){
 
 function viewDetails(index,fechaInicio,fechaFin,titulo,descripcion,horario,precio,infoExtra,coordenadasX,coordenadasY){
 	    var  $toPage = $('#details_' + index);
-		    //stop the browser from scrolling to the top of the page due to the hash mark (#) in the link's href attribute
     event.preventDefault();
-
-    //check to see if the page for the link clicked already exists, if so then don't re-add it to the DOM
     if ($toPage.length === 0) {
-        //no page was found so create one, we can access the photos object to insert data related to the link clicked
         $('body').append('<div data-role="page" id="details_' + index + '"><div data-role="content"><ul data-role="listview" data-inset="true"><li data-role="list-divider">' + fechaInicio + '&nbsp;al &nbsp;'+ fechaFin +'</li><li><h2>' + decodeURIComponent(titulo) + '</h2><p style="white-space:normal;"><strong>' + decodeURIComponent(descripcion) + '</strong><br><br></p><p>Horario: ' + decodeURIComponent(horario) + '</p><p class="ui-li-aside"><strong> Precio: ' + decodeURIComponent(precio) + '</strong></p><p>' + decodeURIComponent(infoExtra) + '<br><br></p><p align="center"><img src="http://maps.googleapis.com/maps/api/staticmap?center=' + coordenadasY + ',' + coordenadasX + '&zoom=15&size=300x300&markers=color:red%7Clabel:A%7C' + coordenadasY + ',' + coordenadasX +'&maptype=roadmap18&sensor=false"></p><p><a data-role="button" href="#eventos">Volver</a></p></li></ul></div></div>');
         
         //set the $toPage variable to the newly added page so jQuery Mobile can navigate to it
@@ -349,20 +418,26 @@ function viewDetails(index,fechaInicio,fechaFin,titulo,descripcion,horario,preci
 
 function viewDetailsItinerario(index,titulo,descripcion){
 	var  $toPage = $('#detailsIt_' + index);
-		    //stop the browser from scrolling to the top of the page due to the hash mark (#) in the link's href attribute
+	var url="http://85.251.45.123:65234/GISWeb/rest/itinerarios/getItinerarioPuntosInteres?id="+index+"&idioma=es";
+	
     event.preventDefault();
-
-    //check to see if the page for the link clicked already exists, if so then don't re-add it to the DOM
     if ($toPage.length === 0) {
-        //no page was found so create one, we can access the photos object to insert data related to the link clicked
-        $('body').append('<div id="map-canvas" style="float:left;width:150;height:150;"></div><b>' + decodeURIComponent(titulo) + '</b>');
-        
-        //set the $toPage variable to the newly added page so jQuery Mobile can navigate to it
+        $('body').append('<div data-role="page" id="map-canvas" style="float:left;width:150;height:150;white-space:normal;"></div><b>' + decodeURIComponent(titulo) + '</b>');
         $toPage = $('#map-canvas');
-		initialize(index);
+		initialize(url);
     }
-    
-    //change to the desired page
+    $.mobile.changePage($toPage);
+}
+
+function viewDetailsGuia(index,titulo,descripcion){
+	var  $toPage = $('#detailsGuia_' + index);
+		var url="http://85.251.45.123:65234/GISWeb/rest/guias/getGuiaPuntosInteres?idioma=es&id="+index;
+    event.preventDefault();
+    if ($toPage.length === 0) {
+        $('body').append('<div data-role="page" id="map-canvas" style="float:left;width:150;height:150;;white-space:normal;""></div><b>' + decodeURIComponent(titulo) + '</b>');
+        $toPage = $('#map-canvas');
+		initialize(url);
+    }
     $.mobile.changePage($toPage);
 }
 
@@ -370,21 +445,21 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
 
-function initialize(index) {
+function initialize(url) {
   directionsDisplay = new google.maps.DirectionsRenderer();
   var zgz = new google.maps.LatLng(41.65509037537398, -0.8801132440567017);
   var mapOptions = {
-    zoom: 12,
+    zoom: 10,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     center: zgz
   }
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   directionsDisplay.setMap(map);
   
-  calcRoute(index);
+  calcRoute(url);
 }
 
-function calcRoute(index) {
+function calcRoute(url) {
  var origin = null;
   var destination = null;
   var waypts = [];
@@ -393,40 +468,46 @@ function calcRoute(index) {
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
 		/*url:"http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/getItinerarioPuntosInteres?idioma=es",*/
-		url:"http://85.251.45.123:65234/GISWeb/rest/itinerarios/getItinerarioPuntosInteres?id="+index+"&idioma=es",
+		url:url,
 		data: '{}',
 		success: function(msg) {	
 			$.each(msg, function (i, theItem) {
 				if(i==0){
+					//Si es el primer punto es el punto de origen
 					origin=new google.maps.LatLng(theItem.coordenadaY.toString(), theItem.coordenadaX.toString());
-				}
-				 waypts.push({
-                        location: new google.maps.LatLng(theItem.coordenadaY.toString(), theItem.coordenadaX.toString()),
+				}else if(i==msg.length-1){
+					//Si es el ultimo punto es el punto de destino
+					destination=new google.maps.LatLng(theItem.coordenadaY.toString(), theItem.coordenadaX.toString());
+				}else{
+				 // Insertamos el punto
+				 waypts.push({location: new google.maps.LatLng(theItem.coordenadaY.toString(), theItem.coordenadaX.toString()),
                         stopover:true
                     });
-				destination=new google.maps.LatLng(theItem.coordenadaY.toString(), theItem.coordenadaX.toString());
-		}
-		);
+				}
+			}
+			);
+		  //Creamos el mapa con los puntos
 		  var request = {
-      origin: origin,
-      destination: destination,
-      waypoints: waypts,
-      optimizeWaypoints: true,
-      travelMode: google.maps.TravelMode.WALKING
-  };
-  directionsService.route(request, function(response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
-      var route = response.routes[0];
-    }
-  });
+      		origin: origin,
+      		destination: destination,
+      		waypoints: waypts,
+      		optimizeWaypoints: true,
+      		travelMode: google.maps.TravelMode.WALKING
+  		  };
+		  //Pintamos la ruta
+  		 directionsService.route(request, function(response, status) {
+    		if (status == google.maps.DirectionsStatus.OK) {
+      			directionsDisplay.setDirections(response);
+      			var route = response.routes[0];
+    		}
+  		 });
 		},
 		error: function(msg) {
-			alert("FAILED : " + msg.status + ' ' + msg.statusText);
+			alert("ERROR : " + msg.status + ' ' + msg.statusText);
 	  }
 	});
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+
 </script>
 </html>
