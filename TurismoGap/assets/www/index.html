@@ -12,8 +12,9 @@
 <script type="text/javascript" charset="utf-8" src="jquery-mobile/CalendarEventPlugin.js"></script>
 <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script type="text/javascript" src="jquery-mobile/jquery.bpopup.min.js"></script>
 </head> 
-<body> 
+<body onLoad="cargarParametros()"> 
 
 <div data-role="page" id="page">
  <div data-role="header" data-theme="d">
@@ -24,7 +25,8 @@
      <li><a href="#tipoEvento" onClick="getTiposEventos()"><span style="right:5px;background: url(img/eventos.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Eventos</a></li>
   <li><a href="#tipoGuias" onClick="getTiposGuias()"><span style="right:5px;background: url(img/guia.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Guías</a></li>
      <li><a href="#tipoItinerarios" onClick="getTiposItinerarios()"><span style="right:5px;background: url(img/itinerario.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Itinerario</a></li>
-         <li><a href="#page4"><span style="right:5px;background: url(img/visita.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Visitas virtuales</a></li>
+         <li><a href="#tipoVisitas" onClick="getTiposVisitas()"><span style="right:5px;background: url(img/visita.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Visitas virtuales</a></li>
+<li><a href="#configuracion"><span style="right:5px;background: url(img/parametros.png) no-repeat;padding:3px;padding-left:20px"></span>&nbsp;Configuración</a></li>
  	 </ul>	 
  </div>
  <div data-role="footer" data-theme="b">
@@ -70,9 +72,9 @@
 		<div data-role="navbar">
 		<ul>
 			<li><a href="#page">Inicio</a></li>
-			<li><a href="b.html">Guías</a></li>
+			<li><a href="#tipoGuias">Guías</a></li>
 			<li><a href="#tipoItinerarios" onClick="getTiposItinerarios()">Itinerario</a></li>
-			<li><a href="d.html">Visitas</a></li>
+			<li><a href="#tipoVisitas">Visitas</a></li>
 		</ul>
 		</div>
 	</div>
@@ -95,8 +97,8 @@
 		<ul>
 			<li><a href="#page">Inicio</a></li>
 			<li><a href="#tipoEvento" onClick="getTiposEventos()">Eventos</a></li>
-			<li><a href="c.html">Guías</a></li>
-			<li><a href="d.html">Visitas</a></li>
+			<li><a href="#tipoGuias">Guías</a></li>
+			<li><a href="#tipoVisitas">Visitas</a></li>
 		</ul>
 		</div>
 	</div>
@@ -115,8 +117,8 @@
 		<ul>
 			<li><a href="#page">Inicio</a></li>
 			<li><a href="#tipoEvento" onClick="getTiposEventos()">Eventos</a></li>
-			<li><a href="c.html">Guías</a></li>
-			<li><a href="d.html">Visitas</a></li>
+			<li><a href="#tipoGuias">Guías</a></li>
+			<li><a href="#tipoVisitas">Visitas</a></li>
 		</ul>
 		</div>
 	</div>
@@ -140,7 +142,7 @@
 			<li><a href="#page">Inicio</a></li>
 			<li><a href="#tipoEvento" onClick="getTiposEventos()">Eventos</a></li>
 			<li><a href="#tipoItinerarios" onClick="getTiposItinerarios()">Itinerarios</a></li>
-			<li><a href="d.html">Visitas</a></li>
+			<li><a href="#tipoVisitas">Visitas</a></li>
 		</ul>
 		</div>
 	</div>
@@ -160,24 +162,80 @@
 			<li><a href="#page">Inicio</a></li>
 			<li><a href="#tipoEvento" onClick="getTiposEventos()">Eventos</a></li>
 			<li><a href="#tipoItinerarios" onClick="getTiposItinerarios()">Itinerarios</a></li>
-			<li><a href="d.html">Visitas</a></li>
+			<li><a href="#tipoVisitas">Visitas</a></li>
 		</ul>
 		</div>
 	</div>
 </div>
 
-<div data-role="page" id="page4">
- <div data-role="header">
- 	<h1>Página cuatro</h1>
- </div>
- 	<div data-role="content"> 
- 	 Contenido	 
- </div>
- <div data-role="footer">
- 	<h4>Pie de página</h4>
- </div>
+<div data-role="page" id="tipoVisitas">
+	<div data-role="header" data-theme="b">
+		<h1>Lista Tipos Visitas</h1>
+	</div>
+	<div id="content" data-role="content"><form id="frmGuias" class="validate">
+        <label><strong>Tipo de Visitas:</strong></label>
+		<select name="tiposVisitasSelect" id="tiposVisitasSelect" class="required">
+            <!-- Add options here -->
+        </select><br>
+        <a href="#visitas" data-role="button" data-theme="b" onClick="getVisitas()">Buscar</a>
+        </form>
+	</div>
+    <div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
+		<div data-role="navbar">
+		<ul>
+			<li><a href="#page">Inicio</a></li>
+			<li><a href="#tipoEvento" onClick="getTiposEventos()">Eventos</a></li>
+			<li><a href="#tipoGuias">Guías</a></li>
+			<li><a href="#tipoItinerarios">Itinerarios</a></li>
+		</ul>
+		</div>
+	</div>
 </div>
 
+<div data-role="page" id="visitas">
+	<div data-role="header" data-theme="b">
+		<h1>Listado de Visitas</h1>
+	</div>
+	<div id="content" data-role="content">
+		<ul id="listviewVisitas" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+	</ul>
+	</div>
+    <div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
+		<div data-role="navbar">
+		<ul>
+			<li><a href="#page">Inicio</a></li>
+			<li><a href="#tipoEvento" onClick="getTiposEventos()">Eventos</a></li>
+			<li><a href="#tipoGuias">Guías</a></li>
+			<li><a href="#tipoItinerarios">Itinerarios</a></li>
+		</ul>
+		</div>
+	</div>
+</div>
+<div data-role="page" id="configuracion">
+	<div data-role="header" data-theme="b">
+		<h1>Configuración</h1>
+	</div>
+	<div id="content" data-role="content"><form id="frmGuias" class="validate">
+        <label><strong>Idioma:</strong></label>
+		<select name="idiomasSelect" id="idiomasSelect" class="required">
+            <option value='Inglés'>Inglés</option>
+             <option value='Español'>Español</option>
+        </select><br>
+		<label><strong>Servidor:</strong></label><input type="text" value="" name="servidorSelect" id="servidorSelect"><br>
+                <a href="#" data-role="button" data-theme="b" onClick="guardarParametros()">Guardar</a>
+        </form>
+	</div>
+    <div data-role="footer" data-id="foo1" data-position="fixed" data-theme="b">
+		<div data-role="navbar">
+		<ul>
+			<li><a href="#page">Inicio</a></li>
+			<li><a href="#tipoEvento" onClick="getTiposEventos()">Eventos</a></li>
+			<li><a href="#tipoGuias">Guías</a></li>
+			<li><a href="#tipoItinerarios">Itinerarios</a></li>
+		</ul>
+		</div>
+	</div>
+</div>
 </body>
 <script type="text/javascript">
 
@@ -263,6 +321,65 @@ dataType: "json",
   var list = document.getElementById('listview');
   $(list).listview("refresh");
   var  $toPage = $('#eventos');
+    $.mobile.changePage($toPage);
+  },
+  error: function(msg) {
+    alert("FAILED : " + msg.status + ' ' + msg.statusText);
+  }
+});
+}
+
+function getTiposVisitas(){
+	$.ajax({
+	type: "GET",
+	contentType: "application/json; charset=utf-8",
+	dataType: "json",
+	/*url:"http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/getTipoItinerarios?idioma=es",*/
+	url:"http://85.251.45.123:65234/GISWeb/rest/visitas/getTipoVisitas?idioma=es",
+	data: '{}',
+	success: function(msg) {	
+		$.each(msg, function (i, theItem) {
+			$('#tiposVisitasSelect').append('<option value='+parseInt(theItem.id)+'>'+theItem.nombre.toString()	+'</option>');
+	});
+	$('#tiposVisitasSelect').listview("refresh");
+  	},
+  	error: function(msg) {
+    	alert("FAILED : " + msg.status + ' ' + msg.statusText);
+  }
+});
+}
+
+function getVisitas(){
+tipoVisita=$("#tiposVisitasSelect").val();
+$.ajax({
+type: "GET",
+contentType: "application/json; charset=utf-8",
+dataType: "json",
+  /*url: "http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/getItinerariosPorTipo?tipo=2592&idioma=es",*/
+  url: "http://85.251.45.123:65234/GISWeb/rest/visitas/getVisitasPorTipo?idioma=es&tipo="+tipoVisita,
+  data: '{}',
+  success: function(msg) {	
+  var listview;
+  var parent = document.getElementById('listviewVisitas');	
+  $('#listviewVisitas').empty();
+	$.each(msg, function (i, theItem) {
+        var nombre = encodeURIComponent(theItem.nombre.toString());
+		var descripcion = encodeURIComponent(theItem.descripcion.toString());
+		
+        var listdiv = document.createElement('li');
+        listdiv.setAttribute('id','listdivVi');
+        listdiv.setAttribute('data-role','list-divider');
+        listdiv.innerHTML = theItem.nombre.toString();	
+		parent.appendChild(listdiv);
+		var listItem = document.createElement('li');
+		listItem.setAttribute('id','listdivVi2');
+        listItem.innerHTML = '<a data-index="' + i + '" onClick=viewDetailsVisita('+theItem.id.toString()+',"'+nombre+'","'+descripcion+'") > <p style="white-space:normal;"><strong>'+decodeURIComponent(descripcion)+'</strong></p></a>';
+		parent.appendChild(listItem);
+	 });
+
+  var list = document.getElementById('listviewVisitas');
+  $(list).listview("refresh");
+  var  $toPage = $('#visitas');
     $.mobile.changePage($toPage);
   },
   error: function(msg) {
@@ -441,6 +558,47 @@ function viewDetailsGuia(index,titulo,descripcion){
     $.mobile.changePage($toPage);
 }
 
+function viewDetailsVisita(index,titulo,descripcion){
+	$.ajax({
+type: "GET",
+contentType: "application/json; charset=utf-8",
+dataType: "json",
+  /*url: "http://192.168.1.130:8080/WSTurismoDigital/rest/turismoDigital/getItinerariosPorTipo?tipo=2592&idioma=es",*/
+  url: "http://85.251.45.123:65234/GISWeb/rest/visitas/getVisitas?idioma=es&id="+index,
+  data: '{}',
+  success: function(data) {
+  	var coordenadas = data.puntoInteresGeom.toString().split(',');
+	coordenadasX = coordenadas[0];
+	coordenadasY = coordenadas[1];
+	var  $toPage = $('#detailsVi_' + index);
+    event.preventDefault();
+    if ($toPage.length === 0) {
+	var codigo = "";
+	$.each(data.listaElemento, function (i, theItem) {
+		var imagen="";
+		var audio="";
+		if (theItem.imagen.length != 0) {
+			imagen='<img src="img/'+theItem.imagen+'">';
+		}
+		if (theItem.audio.length != 0) {
+			audio='<audio controls autoplay preload><source src="img/'+theItem.audio+'" type="audio/wav" /><p><img src="img/altavoz.png" height="32px" width="32px"></p></audio>';
+		}
+       codigo=codigo +'<p align="center"><b>' + theItem.nombre + '<b><br> '+ imagen + '<br><center> '+ audio + '</center></p>';
+		
+	 });
+		        $('body').append('<div data-role="page" id="detailsVi_' + index + '"><div data-role="content"><ul data-role="listview" data-inset="true"><li><h2>' + decodeURIComponent(titulo) + '</h2><p style="white-space:normal;"><strong>' + decodeURIComponent(descripcion) + '</strong><br><br></p><p align="center"><img src="http://maps.googleapis.com/maps/api/staticmap?center=' + coordenadasY + ',' + coordenadasX + '&zoom=15&size=300x300&markers=color:red%7Clabel:A%7C' + coordenadasY + ',' + coordenadasX +'&maptype=roadmap18&sensor=false"></p>' + codigo + '<p><a data-role="button" href="#visitas">Volver</a></p></li></ul></div></div>');   
+        //set the $toPage variable to the newly added page so jQuery Mobile can navigate to it
+        $toPage = $('#detailsVi_' + index);
+    }
+    //change to the desired page
+    $.mobile.changePage($toPage);
+  },
+  error: function(msg) {
+    alert("FAILED : " + msg.status + ' ' + msg.statusText);
+  }
+});
+}
+
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
@@ -457,6 +615,14 @@ function initialize(url) {
   directionsDisplay.setMap(map);
   
   calcRoute(url);
+}
+function cargarParametros() {
+    $('#idiomasSelect').val(localStorage.income);
+    $('#servidorSelect').val(localStorage.saving);
+}
+function guardarParametros() {
+    localStorage.idioma = $('#idiomasSelect').val();
+    localStorage.servidor = $('#servidorSelect').val();
 }
 
 function calcRoute(url) {
